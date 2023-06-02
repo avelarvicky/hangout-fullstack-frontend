@@ -1,0 +1,24 @@
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #ed4358;
+    transition: background-color 1s linear;
+	height: 60px;
+	padding: 0px 10px 0px 10px;
+    text-decoration: none;
+}
+
+.navbar:hover {
+    background-color: #e77c89;      
+ }
+
+.navbar-standard {
+	display: flex;
+	justify-content: center;
+}
+
+.navbar-loggedin {
+	display: flex;
+	justify-content: center;
+}
