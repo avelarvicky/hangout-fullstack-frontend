@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import DatePicker from "react-datepicker";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,23 +16,37 @@ function AddHangout() {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
-	const [date, setDate] = useState(null);
+	const [date, setDate] = useState("");
+	const [time, setTime] = useState("");
+	const [image, setImage] = useState("");
+	const [auth, setAuth] = useState(false);
+    
 
-	const navigate = useNavigate(); 
+	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const requestBody = { title, description, location, date: date };
+		const requestBody = {
+			title,
+			description,
+			location,
+			date,
+			time,
+			image,
+			auth,
+		};
 
 		axios
 			.post(`${API_URL}/api/hangouts`, requestBody)
 			.then((response) => {
-				
 				setTitle("");
 				setDescription("");
 				setLocation("");
-				setDate(new Date());
+				setDate("");
+				setTime("");
+				setImage("");
+				setAuth(false);
 				props.refreshHangouts();
 
 				// !
@@ -42,7 +55,7 @@ function AddHangout() {
 			})
 			.catch((error) => {
 				console.log(error);
-			}); 
+			});
 	};
 
 	return (
@@ -75,11 +88,35 @@ function AddHangout() {
 				/>
 
 				<label>Date:</label>
-				<DatePicker
+				<input
+					type="date"
+					name="date"
 					value={date}
-					selected={date}
-					onChange={(date) => setDate(date)}
-					dateFormat="dd/MM/yyyy"
+					onChange={(e) => setDate(e.target.value)}
+				/>
+
+				<label>Time:</label>
+				<input
+					type="time"
+					name="time"
+					value={time}
+					onChange={(e) => setTime(e.target.value)}
+				/>
+
+				<label>Images:</label>
+				<input
+					type="file"
+					name="image"
+					value={image}
+					onChange={(e) => setImage(e.target.value)}
+				/>
+
+				<label>Public or Private:</label>
+				<input
+					type="checkbox"
+                    name="checkbox"
+                    checked={auth}
+					onChange={(e) => setAuth(e.target.checked)}
 				/>
 
 				<button type="submit">Post HangOut</button>

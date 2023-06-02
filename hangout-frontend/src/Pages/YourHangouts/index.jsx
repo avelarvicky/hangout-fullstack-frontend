@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
-// import pages
+import AddHangout from "../AddHangout";
+import hangoutsService from "../../Services/hangout.service";
 
-// Pass the API_URL
-const API_URL = "http://localhost:5005";
+import { StyledSection } from "../../Components/Styles/Section.styled";
+import { StyledDiv } from "../../Components/Styles/Post.styled";
+
+import './styles.css'
 
 // steps to do:
 // 1) get the hangouts - get request to backend via axios
@@ -14,20 +16,21 @@ const API_URL = "http://localhost:5005";
 
 function YourHangouts() {
 	const [yourHangouts, setYourHangouts] = useState([]);
-
+    
 	// function that gets hangouts via axios
 	const getYourHangouts = () => {
-		axios
-			.get(`${API_URL}/api/hangouts`)
-			.then((response) => setYourHangouts(response.data))
-			.catch((error) => console.log(error));
+        hangoutsService.getAllHangouts()
+        .then((response) => setYourHangouts(response.data))
+        /* console.log(`teste`, response.data) */
+        .catch((error) => console.log(error));
 	};
-
+    
 	// setting a side-effect after initial rendering of component that is calling getYourHangouts function
 	useEffect(() => {
-		getYourHangouts();
+        getYourHangouts();
 	}, []);
 
+    // functions for format styling
 	const slicedDescription = (hangout) => {
 		if (hangout.description.length > 20) {
 			return hangout.description.slice(0, 20) + "...";
@@ -71,21 +74,28 @@ function YourHangouts() {
 	};
 
 	return (
-		<div>
+		<section>
+            <AddHangout refreshHangouts={getYourHangouts} />
 			{yourHangouts.map((hangout) => {
-				return (
-					<div key={hangout._id}>
-						<h3>{hangout.title}</h3>
-						<p>{slicedDescription(hangout)}</p>
-						<p>{hangout.location}</p>
-						<p>{formatDate(hangout.date)}</p>
-						<Link to={`/hangouts/${hangout._id}`}>
-							<button>View HangOut Details</button>
-						</Link>
-					</div>
+                return (
+					<StyledSection key={hangout._id}>
+						<div>
+							<h3>{hangout.title}</h3>
+							<p>{slicedDescription(hangout)}</p>
+						</div>
+						<StyledDiv>
+							<div className="post-info"><p>{hangout.location}</p></div>
+							<div className="post-info"><p>{formatDate(hangout.date)}</p></div>
+						</StyledDiv>
+						<div>
+							<Link to={`/hangouts/${hangout._id}`}>
+								<button>View HangOut Details</button>
+							</Link>
+						</div>
+					</StyledSection>
 				);
 			})}
-		</div>
+		</section>
 	);
 }
 

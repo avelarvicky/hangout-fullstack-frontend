@@ -28,6 +28,7 @@ class HangoutsService {
 
   // GET /api/hangouts
   getAllHangouts = () => {
+    console.log('im here')
     return this.api.get("/api/hangouts");
   };
 
