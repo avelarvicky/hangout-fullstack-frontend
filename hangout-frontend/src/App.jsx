@@ -10,12 +10,16 @@ import YourHangouts from "./Pages/YourHangouts";
 import AddHangout from "./Pages/AddHangout";
 import EditHangoutPage from "./Pages/EditHangout";
 import HangoutDetailsPage from "./Pages/HangoutDetails";
+
+import AddComment from "./Pages/AddComment";
+import EditComment from "./Pages/EditComment";
+import CommentDetails from "./Pages/CommentDetails";
+
 import SignUpPage from "./Pages/SignUp";
 import LoginPage from "./Pages/Login";
 
 import IsPrivate from './Components/IsPrivate';
 import IsAnon from './Components/IsAnon';
-import AddComment from "./Pages/AddComment";
 
 function App() {
   return (
@@ -31,7 +35,9 @@ function App() {
         <Route path="/signup" element={<IsAnon><SignUpPage/></IsAnon>}/>
         <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>}/>
 
-        <Route path="/comments/create" element={<AddComment />} />
+        <Route path="/hangouts/:hangoutId/comments/create" element={<AddComment />} />
+        <Route path="/hangouts/:hangoutId/comments/:commentId" element={<CommentDetails />} />
+        <Route path="/hangouts/:hangoutId/comments/edit/:commentId" element={<EditComment />} />
       </Routes>
     </div>
   );

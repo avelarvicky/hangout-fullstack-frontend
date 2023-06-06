@@ -1,10 +1,64 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../Services/auth.service";
 import { AuthContext } from "../../Context/auth.context";
 
+import firebase from "../../firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+	signInWithPopup,
+	GoogleAuthProvider,
+	GithubAuthProvider,
+} from "firebase/auth";
+
+const auth = firebase.auth();
+
 function LoginPage() {
+	const [user] = useAuthState(auth);
+	const [thisUser, setThisUser] = useState(null);
+	console.log(user);
+
+	const handleSocialAuth = () => {
+		if (thisUser) {
+			const requestBody = {
+				email: thisUser.email,
+				password: thisUser.uid,
+				name: thisUser.displayName,
+			};
+
+			authService
+				.signup(requestBody)
+				.then((response) => {
+					storeToken(response.data.authToken);
+					// authenticate the User
+					authenticateUser();
+
+					navigate("/");
+				})
+				.catch((error) => {
+					const errorDescription = error.response.data.message;
+					setErrorMessage(errorDescription);
+				});
+		}
+	};
+
+	useEffect(() => {
+		handleSocialAuth();
+	}, [thisUser]);
+
+	const signInWithGoogle = async () => {
+		const provider = new GoogleAuthProvider();
+		await signInWithPopup(auth, provider);
+
+		setThisUser(user);
+	};
+
+	const signInWithGithub = () => {
+		const provider = new GithubAuthProvider();
+		signInWithPopup(auth, provider);
+	};
+
 	// Write State
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -62,10 +116,17 @@ function LoginPage() {
 
 				<button type="submit">Login</button>
 			</form>
+
+			<button onClick={signInWithGoogle}> Sign in with Google </button>
+			<button onClick={signInWithGithub}> Sign in with Github </button>
+
+			<button onClick={() => auth.signOut()}> Logout </button>
+			{user ? <p>You are logged in</p> : <p>You are logged out</p>}
+
 			{errorMessage && <p className="error-message">{errorMessage}</p>}
 
 			<p>Don't have an account yet?</p>
-			<Link to={"/signup"}> Sign Up</Link>
+			<Link to={"/signup"}>Sign Up</Link>
 		</div>
 	);
 }

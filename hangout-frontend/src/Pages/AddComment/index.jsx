@@ -3,23 +3,24 @@ import { useState } from "react";
 import hangoutsService from "../../Services/hangout.service";
 import { useParams } from "react-router-dom";
 
-function AddComment() {
+function AddComment(props) {
 	const { hangoutId } = useParams();
 	const [content, setContent] = useState("");
 
-	const handleSubmit = async (e) => {
-		try {
+	const handleSubmit = (e) => {
+		
 			e.preventDefault();
 
 			const requestBody = { content };
 
-			await hangoutsService.createComment(hangoutId, requestBody);
-
-			setContent("");
-			/* props.refreshComments(); */
-		} catch (error) {
-			console.log(error);
-		}
+			hangoutsService.createComment(hangoutId, requestBody)
+        .then(()=> {
+          setContent("");
+          props.refreshHangout();
+        })
+        .catch((error)=> {
+          console.log(error)
+        })
 	};
 
 	return (

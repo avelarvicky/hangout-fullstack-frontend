@@ -8,6 +8,7 @@ import AddComment from "../AddComment";
 function HangoutDetailsPage() {
 	const { hangoutId } = useParams();
 	const [hangout, setHangout] = useState(null);
+	const [comments, setComments] = useState([]);
 
 	const navigate = useNavigate();
 
@@ -36,6 +37,24 @@ function HangoutDetailsPage() {
 			});
 	};
 
+	const getComments = () => {
+		hangoutsService
+		.getComments(hangoutId)
+		.then((response) => {
+			const comments = response.data;
+			setComments(comments);
+		})
+		.catch((error) => console.log(error));
+	};
+	
+	useEffect(() => {
+		getComments();
+	}, []);
+	
+	const refreshHangout = () => {
+		getHangout();
+		getComments();
+	};
 
 	return (
 		<div>
@@ -46,12 +65,23 @@ function HangoutDetailsPage() {
 					<p>{hangout.location}</p>
 					<p>{hangout.date}</p>
 
-					
-
+					{comments &&
+						comments.map((comment) => {
+							return (
+								<div key={comment._id}>
+									<p>{comment.content}</p>
+									<Link
+										to={`/hangouts/${hangoutId}/comments/${comment._id}`}
+									>
+										<button>View Comment Details</button>
+									</Link>
+								</div>
+							);
+						})}
 				</div>
 			)}
 
-			<AddComment />
+			<AddComment refreshHangout={refreshHangout} />
 
 			<Link to={`/hangouts/edit/${hangoutId}`}>
 				<button>Edit HangOut</button>
