@@ -1,9 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
-
-const API_URL = "http://localhost:5005";
+import hangoutsService from "../../Services/hangout.service";
 
 // steps:
 // 1) create a form;
@@ -13,49 +11,46 @@ const API_URL = "http://localhost:5005";
 // 5) inside this function, create a post request via axios
 
 function AddHangout() {
-	const [title, setTitle] = useState("");
+	const [title, setTitle] = useState("New Hangout");
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
 	const [date, setDate] = useState("");
 	const [time, setTime] = useState("");
 	const [image, setImage] = useState("");
-	const [auth, setAuth] = useState(false);
-    
+	const [auth, setAuth] = useState("public");
 
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const handleSubmit = async (e) => {
+		try {
+			e.preventDefault();
 
-		const requestBody = {
-			title,
-			description,
-			location,
-			date,
-			time,
-			image,
-			auth,
-		};
+			const requestBody = {
+				title,
+				description,
+				location,
+				date/* : `${date.slice(5, 7)}/${date.slice(-2)}/${date.slice(0, 4)}` */,
+				time,
+				image,
+				auth,
+			};
 
-		axios
-			.post(`${API_URL}/api/hangouts`, requestBody)
-			.then((response) => {
-				setTitle("");
-				setDescription("");
-				setLocation("");
-				setDate("");
-				setTime("");
-				setImage("");
-				setAuth(false);
-				props.refreshHangouts();
+			console.log(requestBody);
 
-				// !
-				// redirect to the page with all hangouts
-				navigate("/hangouts");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+			await hangoutsService.createHangout(requestBody);
+
+			setTitle("New Hangout");
+			setDescription("");
+			setLocation("");
+			setDate("");
+			setTime("");
+			setImage("");
+			setAuth("public");
+
+			navigate("/hangouts");
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -92,6 +87,7 @@ function AddHangout() {
 					type="date"
 					name="date"
 					value={date}
+					pattern="\m{2}-\d{2}-\y{4}"
 					onChange={(e) => setDate(e.target.value)}
 				/>
 
@@ -111,12 +107,22 @@ function AddHangout() {
 					onChange={(e) => setImage(e.target.value)}
 				/>
 
-				<label>Public or Private:</label>
+				<label>Public</label>
 				<input
-					type="checkbox"
-                    name="checkbox"
-                    checked={auth}
-					onChange={(e) => setAuth(e.target.checked)}
+					type="radio"
+					name="auth"
+					value="public"
+					checked={auth === "public"}
+					onChange={(e) => setAuth(e.target.value)}
+				/>
+
+				<label>Private</label>
+				<input
+					type="radio"
+					name="auth"
+					value="private"
+					checked={auth === "private"}
+					onChange={(e) => setAuth(e.target.value)}
 				/>
 
 				<button type="submit">Post HangOut</button>

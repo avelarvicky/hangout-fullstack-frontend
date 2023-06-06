@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5005";
+import hangoutsService from "../../Services/hangout.service";
+import AddComment from "../AddComment";
 
 function HangoutDetailsPage() {
 	const { hangoutId } = useParams();
@@ -11,8 +12,8 @@ function HangoutDetailsPage() {
 	const navigate = useNavigate();
 
 	const getHangout = () => {
-		axios
-			.get(`${API_URL}/api/hangouts/${hangoutId}`)
+		hangoutsService
+			.getHangout(hangoutId)
 			.then((response) => {
 				const oneHangout = response.data;
 				setHangout(oneHangout);
@@ -25,8 +26,8 @@ function HangoutDetailsPage() {
 	}, []);
 
 	const deleteHangout = () => {
-		axios
-			.delete(`${API_URL}/api/hangouts/${hangoutId}`)
+		hangoutsService
+			.deleteHangout(hangoutId)
 			.then(() => {
 				navigate("/hangouts");
 			})
@@ -44,8 +45,13 @@ function HangoutDetailsPage() {
 					<p>{hangout.description}</p>
 					<p>{hangout.location}</p>
 					<p>{hangout.date}</p>
+
+					
+
 				</div>
 			)}
+
+			<AddComment />
 
 			<Link to={`/hangouts/edit/${hangoutId}`}>
 				<button>Edit HangOut</button>

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 
-const API_URL = "http://localhost:5005";
+import hangoutsService from "../../Services/hangout.service";
 
 // steps:
 // 1 - grab route params (hangoutId)
@@ -14,24 +13,31 @@ const API_URL = "http://localhost:5005";
 import React from "react";
 
 function EditHangoutPage() {
-	const [title, setTitle] = useState("");
+	const [title, setTitle] = useState("New Hangout");
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
-	const [date, setDate] = useState(new Date());
+	const [date, setDate] = useState("");
+	const [time, setTime] = useState("");
+	const [image, setImage] = useState("");
+	const [auth, setAuth] = useState("public");
 
 	const { hangoutId } = useParams();
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		axios
-			.get(`${API_URL}/api/hangouts/${hangoutId}`)
+		hangoutsService
+			.getHangout(hangoutId)
 			.then((response) => {
 				const oneHangout = response.data;
+
 				setTitle(oneHangout.title);
 				setDescription(oneHangout.description);
 				setLocation(oneHangout.location);
 				setDate(oneHangout.date);
+				setTime(oneHangout.time);
+				setImage(oneHangout.image);
+				setAuth(oneHangout.auth);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -41,20 +47,29 @@ function EditHangoutPage() {
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
 
-		const requestBody = { title, description, location, date };
+		const requestBody = {
+			title,
+			description,
+			location,
+			date,
+			time,
+			image,
+			auth,
+		};
 
-		axios
-			.put(`${API_URL}/api/hangouts/${hangoutId}`, requestBody)
-			.then((response) => {
-				navigate(`/hangouts/${hangoutId}`).catch((error) => {
-					console.log(error);
-				});
+		hangoutsService
+			.updateHangout(hangoutId, requestBody)
+			.then(() => {
+				navigate(`/hangouts/${hangoutId}`);
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 	};
 
 	return (
 		<div>
-			<h3>Edit the Project</h3>
+			<h3>Edit the HangOut</h3>
 
 			<form onSubmit={handleFormSubmit}>
 				<label>Title:</label>
@@ -86,7 +101,42 @@ function EditHangoutPage() {
 					type="date"
 					name="date"
 					value={date}
+					pattern="\m{2}-\d{2}-\y{4}"
 					onChange={(e) => setDate(e.target.value)}
+				/>
+
+				<label>Time:</label>
+				<input
+					type="time"
+					name="time"
+					value={time}
+					onChange={(e) => setTime(e.target.value)}
+				/>
+
+				<label>Images:</label>
+				<input
+					type="file"
+					name="image"
+					value={image}
+					onChange={(e) => setImage(e.target.value)}
+				/>
+
+				<label>Public</label>
+				<input
+					type="radio"
+					name="auth"
+					value="public"
+					checked={auth === "public"}
+					onChange={(e) => setAuth(e.target.value)}
+				/>
+
+				<label>Private</label>
+				<input
+					type="radio"
+					name="auth"
+					value="private"
+					checked={auth === "private"}
+					onChange={(e) => setAuth(e.target.value)}
 				/>
 
 				<button type="submit">Edit HangOut</button>

@@ -15,6 +15,7 @@ import LoginPage from "./Pages/Login";
 
 import IsPrivate from './Components/IsPrivate';
 import IsAnon from './Components/IsAnon';
+import AddComment from "./Pages/AddComment";
 
 function App() {
   return (
@@ -26,8 +27,11 @@ function App() {
         <Route path="/hangouts/create" element={<AddHangout />} />
         <Route path="/hangouts/:hangoutId" element={<HangoutDetailsPage />} />
         <Route path="/hangouts/edit/:hangoutId" element={<EditHangoutPage />} />
+
         <Route path="/signup" element={<IsAnon><SignUpPage/></IsAnon>}/>
         <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>}/>
+
+        <Route path="/comments/create" element={<AddComment />} />
       </Routes>
     </div>
   );

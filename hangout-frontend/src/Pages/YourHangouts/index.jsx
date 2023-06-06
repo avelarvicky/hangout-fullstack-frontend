@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import AddHangout from "../AddHangout";
 import hangoutsService from "../../Services/hangout.service";
 
 import { StyledSection } from "../../Components/Styles/Section.styled";
@@ -19,10 +18,11 @@ function YourHangouts() {
     
 	// function that gets hangouts via axios
 	const getYourHangouts = () => {
-        hangoutsService.getAllHangouts()
-        .then((response) => setYourHangouts(response.data))
-        /* console.log(`teste`, response.data) */
-        .catch((error) => console.log(error));
+		hangoutsService.getAllHangouts()
+		.then((response)=> {setYourHangouts(response.data)
+		console.log(response.data)})
+		
+		.catch((error)=> console.log(error))
 	};
     
 	// setting a side-effect after initial rendering of component that is calling getYourHangouts function
@@ -39,7 +39,7 @@ function YourHangouts() {
 		}
 	};
 
-	const getDaySuffix = (day) => {
+	/* const getDaySuffix = (day) => {
 		if (day >= 11 && day <= 13) {
 			return "th";
 		}
@@ -58,9 +58,9 @@ function YourHangouts() {
 			default:
 				return "th";
 		}
-	};
+	}; */
 
-	const formatDate = (dateString) => {
+	/* const formatDate = (dateString) => {
 		const date = new Date(dateString);
 		const options = { month: "long", day: "numeric", year: "numeric" };
 		const formattedDate = date.toLocaleDateString(undefined, options);
@@ -71,12 +71,12 @@ function YourHangouts() {
 		const formattedDay = day + (suffix !== "" ? suffix : "");
 
 		return formattedDate.replace(/\b(\d+)\b/, formattedDay);
-	};
+	}; */
 
 	return (
 		<section>
-            <AddHangout refreshHangouts={getYourHangouts} />
-			{yourHangouts.map((hangout) => {
+           {/*  <AddHangout refreshHangouts={getYourHangouts}/> */}
+			{yourHangouts && yourHangouts.map((hangout) => {
                 return (
 					<StyledSection key={hangout._id}>
 						<div>
@@ -85,7 +85,7 @@ function YourHangouts() {
 						</div>
 						<StyledDiv>
 							<div className="post-info"><p>{hangout.location}</p></div>
-							<div className="post-info"><p>{formatDate(hangout.date)}</p></div>
+							<div className="post-info"><p>{hangout.date}</p></div>
 						</StyledDiv>
 						<div>
 							<Link to={`/hangouts/${hangout._id}`}>

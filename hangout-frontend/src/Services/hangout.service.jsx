@@ -9,7 +9,7 @@ class HangoutsService {
     });
 
     // Automatically set JWT token in the headers for every request
-    this.api.interceptors.request.use((config) => {
+    this.api.interceptors.request.use(config => {
       // Retrieve the JWT token from the local storage
       const storedToken = localStorage.getItem("authToken");
 
@@ -41,6 +41,16 @@ class HangoutsService {
   updateHangout = (id, requestBody) => {
     return this.api.put(`/api/hangouts/${id}`, requestBody);
   };
+
+  // POST /api/hangouts/:hangoutId/comments
+  createComment = (id, requestBody) => {
+    return this.api.post(`/api/${id}/comments`, requestBody)
+  }
+
+  // GET /api/hangouts/:hangoutId/comments
+  getComments = (id) => {
+    return this.api.get(`/api/${id}/comments`)
+  }
 
   // DELETE /api/hangouts/:id
   deleteHangout = (id) => {
