@@ -20,6 +20,7 @@ import LoginPage from "./Pages/Login";
 
 import IsPrivate from './Components/IsPrivate';
 import IsAnon from './Components/IsAnon';
+import YourProfilePage from "./Pages/YourProfile";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
         <Route path="/signup" element={<IsAnon><SignUpPage/></IsAnon>}/>
         <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>}/>
+        <Route path="/userprofile/:userId" element={<YourProfilePage />} />
 
         <Route path="/hangouts/:hangoutId/comments/create" element={<AddComment />} />
         <Route path="/hangouts/:hangoutId/comments/:commentId" element={<CommentDetails />} />
