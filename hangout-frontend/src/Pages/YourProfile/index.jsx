@@ -10,7 +10,7 @@ function YourProfilePage() {
   const [userData, setUserData] = useState(null)
 
   useEffect(()=> {
-      const getUserData = async () => {
+      const getUserData = async () =>  {
         try {
             const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/userprofile`, {
                 headers: { Authorization: `Bearer ${storedToken}`},
