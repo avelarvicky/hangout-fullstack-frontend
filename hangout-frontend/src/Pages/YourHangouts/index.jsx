@@ -6,7 +6,8 @@ import hangoutsService from "../../Services/hangout.service";
 import { StyledSection } from "../../Components/Styles/Section.styled";
 import { StyledDiv } from "../../Components/Styles/Post.styled";
 
-import './styles.css'
+import "./styles.css";
+import ConfirmPresence from "../ConfirmPresence";
 
 // steps to do:
 // 1) get the hangouts - get request to backend via axios
@@ -15,22 +16,25 @@ import './styles.css'
 
 function YourHangouts() {
 	const [yourHangouts, setYourHangouts] = useState([]);
-    
+
 	// function that gets hangouts via axios
 	const getYourHangouts = () => {
-		hangoutsService.getAllHangouts()
-		.then((response)=> {setYourHangouts(response.data)
-		console.log(response.data)})
-		
-		.catch((error)=> console.log(error))
+		hangoutsService
+			.getAllHangouts()
+			.then((response) => {
+				setYourHangouts(response.data);
+				console.log(response.data);
+			})
+
+			.catch((error) => console.log(error));
 	};
-    
+
 	// setting a side-effect after initial rendering of component that is calling getYourHangouts function
 	useEffect(() => {
-        getYourHangouts();
+		getYourHangouts();
 	}, []);
 
-    // functions for format styling
+	// functions for format styling
 	const slicedDescription = (hangout) => {
 		if (hangout.description.length > 20) {
 			return hangout.description.slice(0, 20) + "...";
@@ -74,27 +78,45 @@ function YourHangouts() {
 	}; */
 
 	return (
-		<section>
-           {/*  <AddHangout refreshHangouts={getYourHangouts}/> */}
-			{yourHangouts && yourHangouts.map((hangout) => {
-                return (
-					<StyledSection key={hangout._id}>
-						<div>
-							<h3>{hangout.title}</h3>
-							<p>{slicedDescription(hangout)}</p>
-						</div>
-						<StyledDiv>
-							<div className="post-info"><p>{hangout.location}</p></div>
-							<div className="post-info"><p>{hangout.date}</p></div>
-						</StyledDiv>
-						<div>
-							<Link to={`/hangouts/${hangout._id}`}>
-								<button>View HangOut Details</button>
-							</Link>
-						</div>
-					</StyledSection>
-				);
-			})}
+		<section className="section">
+			{/*  <AddHangout refreshHangouts={getYourHangouts}/> */}
+			{yourHangouts &&
+				yourHangouts.map((hangout) => {
+					return (
+						<StyledSection key={hangout._id}>
+							<div className="title-description">
+								<div className="post-info-noborder">
+									<h3>{hangout.title}</h3>
+								</div>
+								<div className="post-info-noborder">
+									<p>{slicedDescription(hangout)}</p>
+								</div>
+							</div>
+							{/* <StyledDiv> */}
+							<div className="date-location">
+								<div className="post-info">
+									<p>{hangout.location}</p>
+								</div>
+								<div className="post-info">
+									<p>{hangout.date}</p>
+								</div>
+							</div>
+							{/* </StyledDiv> */}
+							<div>
+								<Link to={`/hangouts/${hangout._id}`}>
+									<button className="post-button">View HangOut Details</button>
+								</Link>
+							</div>
+							<div>
+								<ConfirmPresence /* refreshHangout={refreshHangout} */
+								/>
+								<div>
+									<p>{hangout.confirmations}</p>
+								</div>
+							</div>
+						</StyledSection>
+					);
+				})}
 		</section>
 	);
 }

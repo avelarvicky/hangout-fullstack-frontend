@@ -8,19 +8,19 @@ function AddComment(props) {
 	const [content, setContent] = useState("");
 
 	const handleSubmit = (e) => {
-		
-			e.preventDefault();
+		e.preventDefault();
 
-			const requestBody = { content };
+		const requestBody = { content };
 
-			hangoutsService.createComment(hangoutId, requestBody)
-        .then(()=> {
-          setContent("");
-          props.refreshHangout();
-        })
-        .catch((error)=> {
-          console.log(error)
-        })
+		hangoutsService
+			.createComment(hangoutId, requestBody)
+			.then(() => {
+				setContent("");
+				props.refreshHangout();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (

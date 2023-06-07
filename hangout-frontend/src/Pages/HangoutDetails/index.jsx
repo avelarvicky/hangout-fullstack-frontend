@@ -9,6 +9,7 @@ function HangoutDetailsPage() {
 	const { hangoutId } = useParams();
 	const [hangout, setHangout] = useState(null);
 	const [comments, setComments] = useState([]);
+	/* const [confirmations, setConfirmations] = useState([]); */
 
 	const navigate = useNavigate();
 
@@ -55,6 +56,16 @@ function HangoutDetailsPage() {
 		getHangout();
 		getComments();
 	};
+
+	/* const getConfirmations = () => {
+		hangoutsService
+		.getConfirmations(hangoutId)
+		.then((response)=> {
+			const confirmations = response.data;
+			setConfirmations(confirmations);
+		})
+		.catch((error)=> console.log(error))
+	} */
 
 	return (
 		<div>

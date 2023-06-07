@@ -73,10 +73,20 @@ class HangoutsService {
 		return this.api.delete(`/api/${id}/comments/${commentId}`);
 	};
 
-	// GET /api/userprofile/:userId
+	// POST /api/:hangoutId/confirmations 
+	createConfirmation = (id, requestBody) => {
+		return this.api.post(`/api/${id}/confirmations`, requestBody);
+	}
+
+	// GET /api/:hangoutId/confirmations
+	getConfirmations = (id) => {
+		return this.api.get(`/api/${id}/confirmations`)
+	}
+
+	/* // GET /api/userprofile
 	getProfile = () => {
 		return this.api.get(`/api/userprofile`);
-	};
+	}; */
 }
 
 // Create one instance object

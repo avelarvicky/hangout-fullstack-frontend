@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const StyledDiv = styled.div`
-	width: 30vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    margin: 0px 50px 0px 50px;
+    padding: 20px 20px 20px 20px;
     text-align: center;
 `;
