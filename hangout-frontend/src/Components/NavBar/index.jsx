@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../../Context/auth.context";
 
 import "./styles.css";
@@ -10,7 +10,6 @@ function NavBar() {
 	const [isHovered, setIsHovered] = useState(false);
 	const [text, setText] = useState("");
 	const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
-	const [userData, setUserData] = useState(null)
 
 	const handleMouseEnter = () => {
 		setIsHovered(true);
@@ -45,25 +44,6 @@ function NavBar() {
 			}
 		}, 100);
 	};
-
-	useEffect(() => {
-		const getUserData = async () => {
-			try {
-				const response = await axios.get(
-					`${import.meta.env.VITE_REACT_APP_API_URL}/api/userprofile/${
-						user._id
-					}`
-				);
-				setUserData(response.data)
-			} catch (error) {
-				console.log("Error fetching user data", error);
-			}
-		};
-
-		if (isLoggedIn) {
-			getUserData()
-		}
-	}, []);
 
 	return (
 		<nav className="navbar">
@@ -114,13 +94,11 @@ function NavBar() {
 						</Link>
 					</div>
 					<div>
-						<button onClick={logOutUser} className="btn">
-							Logout
-						</button>
+						<button onClick={logOutUser} className="btn">Logout</button>
 						{/* <p>{user && user.name}</p> */}
 					</div>
 					<div>
-						<Link to={`/userprofile/${user._id}`}>
+						<Link to={`/userprofile`}>
 							<button className="btn">
 								<p>View Profile</p>
 							</button>

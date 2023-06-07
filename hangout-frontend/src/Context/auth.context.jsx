@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import authService from "../Services/auth.service";
 
 // Creates React Context with shareable State data
 const AuthContext = React.createContext();
@@ -15,26 +16,18 @@ function AuthProviderWrapper(props) {
     localStorage.setItem("authToken", token);
   };
 
-  const getToken = () => {
-    return localStorage.getItem('authToken')
-  }
-
   // Authentication Function
   const authenticateUser = () => {
     // Get the Stored Token from Local Storage
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
-      axios
-        .get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/verify`, {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          }
-        })
+      authService
+        .verify()
         .then((response) => {
           //Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(response.data);
+          setUser(response.data.user);
         })
         .catch(() => {
           // catch possibility whenever it finds an invalid token
@@ -76,7 +69,6 @@ function AuthProviderWrapper(props) {
         storeToken,
         authenticateUser,
         logOutUser,
-        getToken
       }}
     >
       {props.children}

@@ -35,7 +35,7 @@ function App() {
 
         <Route path="/signup" element={<IsAnon><SignUpPage/></IsAnon>}/>
         <Route path="/login" element={<IsAnon><LoginPage/></IsAnon>}/>
-        <Route path="/userprofile/:userId" element={<YourProfilePage />} />
+        <Route path="/userprofile" element={<YourProfilePage />} />
 
         <Route path="/hangouts/:hangoutId/comments/create" element={<AddComment />} />
         <Route path="/hangouts/:hangoutId/comments/:commentId" element={<CommentDetails />} />

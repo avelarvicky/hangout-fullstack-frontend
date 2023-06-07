@@ -72,6 +72,11 @@ class HangoutsService {
 	deleteComment = (id, commentId) => {
 		return this.api.delete(`/api/${id}/comments/${commentId}`);
 	};
+
+	// GET /api/userprofile/:userId
+	getProfile = () => {
+		return this.api.get(`/api/userprofile`);
+	};
 }
 
 // Create one instance object
