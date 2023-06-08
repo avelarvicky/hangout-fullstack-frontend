@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../Context/auth.context";
 
@@ -10,6 +10,7 @@ function NavBar() {
 	const [isHovered, setIsHovered] = useState(false);
 	const [text, setText] = useState("");
 	const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const handleMouseEnter = () => {
 		setIsHovered(true);
@@ -43,6 +44,11 @@ function NavBar() {
 				clearInterval(interval);
 			}
 		}, 100);
+	};
+
+	const handleLogout = () => {
+		logOutUser();
+		navigate("/");
 	};
 
 	return (
@@ -94,7 +100,9 @@ function NavBar() {
 						</Link>
 					</div>
 					<div>
-						<button onClick={logOutUser} className="btn">Logout</button>
+						<button onClick={handleLogout} className="btn">
+							Logout
+						</button>
 						{/* <p>{user && user.name}</p> */}
 					</div>
 					<div>

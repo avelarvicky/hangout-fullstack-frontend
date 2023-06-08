@@ -5,8 +5,7 @@ import axios from "axios";
 class HangoutsService {
 	constructor() {
 		this.api = axios.create({
-			baseURL:
-				import.meta.env.VITE_APP_API_URL 
+			baseURL: import.meta.env.VITE_APP_API_URL,
 		});
 
 		// Automatically set JWT token in the headers for every request
@@ -49,8 +48,8 @@ class HangoutsService {
 	};
 
 	// POST /api/hangouts/:hangoutId/comments
-	createComment = (id, requestBody) => {
-		return this.api.post(`/api/${id}/comments`, requestBody);
+	createComment = (id, requestBody, userId) => {
+		return this.api.post(`/api/${id}/comments/${userId}`, requestBody);
 	};
 
 	// GET /api/hangouts/:hangoutId/comments
@@ -73,15 +72,15 @@ class HangoutsService {
 		return this.api.delete(`/api/${id}/comments/${commentId}`);
 	};
 
-	// POST /api/:hangoutId/confirmations 
+	// POST /api/:hangoutId/confirmations
 	createConfirmation = (id, requestBody) => {
 		return this.api.post(`/api/${id}/confirmations`, requestBody);
-	}
+	};
 
 	// GET /api/:hangoutId/confirmations
 	getConfirmations = (id) => {
-		return this.api.get(`/api/${id}/confirmations`)
-	}
+		return this.api.get(`/api/${id}/confirmations`);
+	};
 
 	/* // GET /api/userprofile
 	getProfile = () => {

@@ -16,7 +16,7 @@ import ConfirmPresence from "../ConfirmPresence";
 // 2) store the hangouts in the state
 // 3) map through the elements of hangouts array that is in the state
 
-function YourHangouts() {
+function ExploreHangouts() {
 	const [yourHangouts, setYourHangouts] = useState([]);
 	const { user } = useContext(AuthContext);
 
@@ -26,7 +26,7 @@ function YourHangouts() {
 			.getAllHangouts()
 			.then((response) => {
 				setYourHangouts(
-					response.data.filter((hangout) => hangout.auth === "private")
+					response.data.filter((hangout) => hangout.auth === "public")
 				);
 			})
 			.catch((error) => console.log(error));
@@ -106,7 +106,7 @@ function YourHangouts() {
 
 	return (
 		<div>
-			<h1> Your HangOuts </h1>
+			<h1> Explore HangOuts </h1>
 			{hangoutSections.map((section, index) => (
 				<section className="section">
 					<div className="group-section" key={index}>
@@ -178,4 +178,4 @@ function YourHangouts() {
 	);
 }
 
-export default YourHangouts;
+export default ExploreHangouts;

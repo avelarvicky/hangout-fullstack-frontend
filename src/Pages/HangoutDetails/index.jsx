@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../Context/auth.context";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 import hangoutsService from "../../Services/hangout.service";
@@ -10,7 +10,7 @@ function HangoutDetailsPage() {
 	const [hangout, setHangout] = useState(null);
 	const [comments, setComments] = useState([]);
 	/* const [confirmations, setConfirmations] = useState([]); */
-
+	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const getHangout = () => {
@@ -19,6 +19,7 @@ function HangoutDetailsPage() {
 			.then((response) => {
 				const oneHangout = response.data;
 				setHangout(oneHangout);
+				console.log(hangout);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -71,6 +72,7 @@ function HangoutDetailsPage() {
 		<div>
 			{hangout && (
 				<div>
+					<img src={hangout.image} style={{ width: 200 }} />
 					<h1>{hangout.title}</h1>
 					<p>{hangout.description}</p>
 					<p>{hangout.location}</p>
@@ -81,11 +83,14 @@ function HangoutDetailsPage() {
 							return (
 								<div key={comment._id}>
 									<p>{comment.content}</p>
-									<Link
-										to={`/hangouts/${hangoutId}/comments/${comment._id}`}
-									>
-										<button>View Comment Details</button>
-									</Link>
+									{comment.author == user._id && (
+										<Link
+											to={`/hangouts/${hangoutId}/comments/${comment._id}`}
+										>
+											<button>View Comment Details</button>
+										</Link>
+									)}
+						
 								</div>
 							);
 						})}
@@ -94,15 +99,17 @@ function HangoutDetailsPage() {
 
 			<AddComment refreshHangout={refreshHangout} />
 
-			<Link to={`/hangouts/edit/${hangoutId}`}>
-				<button>Edit HangOut</button>
-			</Link>
-
-			<button onClick={deleteHangout}>Delete HangOut</button>
-
-			<Link to="/hangouts">
-				<button>Back to HangOuts</button>
-			</Link>
+			{hangout && hangout.user._id == user._id && (
+				<>
+					<Link to={`/hangouts/edit/${hangoutId}`}>
+						<button>Edit HangOut</button>
+					</Link>
+					<button onClick={deleteHangout}>Delete HangOut</button>
+					<Link to="/hangouts">
+						<button>Back to HangOuts</button>
+					</Link>
+				</>
+			)}
 		</div>
 	);
 }

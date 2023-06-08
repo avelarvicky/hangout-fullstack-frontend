@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import EditProfilePage from "../EditProfile";
 
 function YourProfilePage() {
 	const storedToken = localStorage.getItem("authToken");
@@ -25,12 +27,11 @@ function YourProfilePage() {
 		getUserData();
 	}, []);
 
-
-
-
 	return (
 		<div>
-			<p>Welcome, {userData && userData.name}</p>
+			<h1>Welcome, {userData && userData.name}</h1>
+
+			<Link to={"/userprofile/edit"}>Edit Profile</Link>
 		</div>
 	);
 }
