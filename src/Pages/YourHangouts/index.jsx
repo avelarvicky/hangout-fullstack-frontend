@@ -9,8 +9,6 @@ import hangoutsService from "../../Services/hangout.service";
 import { StyledSection } from "../../Components/Styles/Section.styled";
 import "./styles.css";
 
-import ConfirmPresence from "../ConfirmPresence";
-
 // steps to do:
 // 1) get the hangouts - get request to backend via axios
 // 2) store the hangouts in the state

@@ -53,12 +53,14 @@ function NavBar() {
 
 	return (
 		<nav className="navbar">
-			<div>
+			<div className="left">
+				<h1 className="logo">HangOut</h1>
 				<Link to="/">
 					<button
 						className={`btn ${isHovered ? "hovered" : ""}`}
 						onMouseEnter={handleMouseEnter}
 						onMouseLeave={handleMouseLeave}
+						style={{ textDecoration: 'none' }}
 					>
 						<img
 							src="/images/home.png"
@@ -79,46 +81,46 @@ function NavBar() {
 			{isLoggedIn ? (
 				<div className="navbar-loggedin">
 					<div>
-						<Link to="/explore">
+						<Link to="/explore" style={{ textDecoration: 'none' }}>
 							<button className="btn">
 								<p>Explore</p>
 							</button>
 						</Link>
 					</div>
 					<div>
-						<Link to="/hangouts">
+						<Link to="/hangouts" style={{ textDecoration: 'none' }}>
 							<button className="btn">
-								<p>Your HangOuts</p>
+								<p>Friends' HangOuts</p>
 							</button>
 						</Link>
 					</div>
 					<div>
-						<Link to="/hangouts/create">
+						<Link to="/hangouts/create" style={{ textDecoration: 'none' }}>
 							<button className="btn">
 								<p>New HangOut</p>
 							</button>
 						</Link>
 					</div>
 					<div>
-						<button onClick={handleLogout} className="btn">
-							Logout
-						</button>
-						{/* <p>{user && user.name}</p> */}
-					</div>
-					<div>
-						<Link to={`/userprofile`}>
+						<Link to={`/userprofile`} style={{ textDecoration: 'none' }}>
 							<button className="btn">
 								<p>View Profile</p>
 							</button>
 						</Link>
 					</div>
+					<div>
+						<button onClick={handleLogout} className="btn logout">
+							Logout
+						</button>
+						{/* <p>{user && user.name}</p> */}
+					</div>
 				</div>
 			) : (
 				<div>
-					<Link to="/signup">
+					<Link to="/signup" style={{ textDecoration: 'none' }}>
 						<button>Sign Up</button>
 					</Link>
-					<Link to="/login">
+					<Link to="/login" style={{ textDecoration: 'none' }}>
 						<button>Login</button>
 					</Link>
 				</div>

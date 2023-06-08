@@ -11,6 +11,8 @@ function HangoutDetailsPage() {
 	const [comments, setComments] = useState([]);
 	/* const [confirmations, setConfirmations] = useState([]); */
 	const { user } = useContext(AuthContext);
+
+	console.log(user)
 	const navigate = useNavigate();
 
 	const getHangout = () => {

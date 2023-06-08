@@ -105,7 +105,6 @@ function AddHangout() {
 					type="date"
 					name="date"
 					value={date}
-					pattern="\m{2}-\d{2}-\y{4}"
 					onChange={(e) => setDate(e.target.value)}
 				/>
 

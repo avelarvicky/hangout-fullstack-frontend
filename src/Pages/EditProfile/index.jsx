@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/auth.context";
+import axios from "axios";
 
 function EditProfilePage() {
 	const storedToken = localStorage.getItem("authToken");
 
+    const { user } = useContext(AuthContext);
+
 	const [bio, setBio] = useState("");
 	const [profileImg, setProfileImg] = useState("");
 
-    const [userData, setUserData] = useState(null);
-
 	const navigate = useNavigate();
 
-    const handleUpload = async (e) => {
+    /* const handleUpload = async (e) => {
 		try {
 			//formData === enctype=multipart/formdata
 			const uploadData = new FormData();
@@ -26,49 +28,24 @@ function EditProfilePage() {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-    useEffect(() => {
-		const getUserData = async () => {
-			try {
-				const response = await axios.get(
-					`${import.meta.env.VITE_APP_API_URL}/auth/userprofile`,
-					{
-						headers: { Authorization: `Bearer ${storedToken}` },
-					}
-				);
-				setUserData(response.data);
-				console.log(response.data);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getUserData();
-	}, []);
+	}; */
 
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
 
-			const requestBody = {
-				bio,
-				profileImg,
-			};
-
-			console.log(requestBody);
-
 			const response = await axios.post(
-				`${import.meta.env.VITE_APP_API_URL}/auth/userprofile/edit`,
+                `${import.meta.env.VITE_APP_API_URL}/auth/userprofile/edit`,
+                {
+                    bio: bio,
+                    profileImg: profileImg
+                },
 				{
 					headers: { Authorization: `Bearer ${storedToken}` },
 				},
-				requestBody
 			);
 
-			setBio(!response.data.bio ? "" : response.data.bio);
-			setProfileImg(
-				!response.data.profileImg ? "" : response.data.profileImg
-			);
+            console.log(response.data)
 
 			navigate("/userprofile");
 		} catch (error) {
@@ -78,7 +55,7 @@ function EditProfilePage() {
 
 	return (
 		<div>
-			<h1>Welcome, {userData && userData.name}</h1>
+			<h1>Welcome,</h1>
 
 			<form onSubmit={handleSubmit}>
 				<textarea
@@ -87,11 +64,11 @@ function EditProfilePage() {
 					onChange={(e) => setBio(e.target.value)}
 				/>
 
-				<label htmlFor="image">
+				{/* <label htmlFor="image">
 					<input type="file" onChange={(e) => handleUpload(e)} />
-				</label>
+				</label> */}
 
-				<button type="submit">Post HangOut</button>
+				<button type="submit">Save Changes</button>
 			</form>
 		</div>
 	);

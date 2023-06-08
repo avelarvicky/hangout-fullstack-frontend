@@ -9,13 +9,28 @@
     text-decoration: none;
 }
 
-.navbar:hover {
-    background-color: #e77c89;      
- }
-
 .navbar-loggedin {
 	width: 100%;
 	display: flex;
 	justify-content: right;
 	align-items: center;
+}
+
+.logo {
+	font-size: 35px;
+    text-shadow: 2px 1px 2px rgb(109, 109, 109);
+	text-align: center;
+	margin: 0;
+	padding: 0px 10px 0px 10px;
+}
+
+.left {
+	width: 100%;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.logout {
+	padding-left: 10px;
 }

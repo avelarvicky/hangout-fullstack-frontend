@@ -29,9 +29,15 @@ function YourProfilePage() {
 
 	return (
 		<div>
-			<h1>Welcome, {userData && userData.name}</h1>
+			{userData && (
+				<div>
+					<h1>Welcome, {userData.name}</h1>
+					<p>{userData.bio}</p>
+					<img src={userData.profileImg} alt="" />
 
-			<Link to={"/userprofile/edit"}>Edit Profile</Link>
+					<Link to={"/userprofile/edit"}>Edit Profile</Link>
+				</div>
+			)}
 		</div>
 	);
 }
