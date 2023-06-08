@@ -96,19 +96,20 @@ function YourHangouts() {
 							<StyledSection key={hangout._id}>
 								<div className="content">
 									<button className="post-button button">
-										<img src="/images/confirm-button.png"
-										style={{
-											width: "30px",
-											marginLeft: "-8px",
-											marginRight: "-10px",
-											marginTop: "40px",
-											marginBottom: "40px",
-											flexDirection: "row",
-										}}
-										alt="Confirm"
+										<img
+											src="/images/confirm-button.png"
+											style={{
+												width: "20px",
+												marginLeft: "-8px",
+												marginRight: "-10px",
+												marginTop: "0px",
+												marginBottom: "0px",
+												flexDirection: "row",
+											}}
+											alt="Confirm"
 										/>
 									</button>
-									
+
 									<div className="title-description">
 										<div className="post-info-noborder">
 											<h3>{hangout.title}</h3>
@@ -120,9 +121,10 @@ function YourHangouts() {
 									{/* <StyledDiv> */}
 									<div className="date-location">
 										<div className="post-info">
-											<h6 className="title-overlay">location</h6>
+											<h6>location</h6>
+										</div>
+										<div className="post-info">
 											<p>{hangout.location}</p>
-											<div className="overlay"> </div>
 										</div>
 										<div className="post-info">
 											<p>{hangout.date}</p>

@@ -62,7 +62,7 @@ h1 {
 }
 
 .post-button {
-	height: 50px;
+	height: 40px;
 	font-weight: 100;
 	font-size: 14px;
 	color: #000000;
@@ -96,28 +96,15 @@ h1 {
 
 .button {
 	position: absolute;
-	top: -5%;
+	top: 3%;
 	left: 90%;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
-	transform: translate(-50%, -50%);
+	transform: translate(-25%, -25%);
 	padding: 10px 20px;
 	background-color: #ed4358;
 	color: #fff;
 	border: none;
 	z-index: 2;
-}
-
-.title-overlay {
-	position: absolute;
-	top: 9%;
-	left: 10%;
-	color: #000000;
-	border: none;
-	z-index: 2;
-	font-variant: small-caps;
-	text-align: center;
-	font-size: 20px;
-	letter-spacing: 2px;
 }
 
 .overlay {
