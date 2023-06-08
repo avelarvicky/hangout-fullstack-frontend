@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import hangoutsService from "../../Services/hangout.service";
 
 import { StyledSection } from "../../Components/Styles/Section.styled";
-import { StyledDiv } from "../../Components/Styles/Post.styled";
-
 import "./styles.css";
+
 import ConfirmPresence from "../ConfirmPresence";
 
 // steps to do:
@@ -36,8 +35,8 @@ function YourHangouts() {
 
 	// functions for format styling
 	const slicedDescription = (hangout) => {
-		if (hangout.description.length > 20) {
-			return hangout.description.slice(0, 20) + "...";
+		if (hangout.description.length > 100) {
+			return hangout.description.slice(0, 100) + "...";
 		} else {
 			return hangout.description;
 		}
@@ -77,47 +76,79 @@ function YourHangouts() {
 		return formattedDate.replace(/\b(\d+)\b/, formattedDay);
 	}; */
 
+	const splitHangoutsIntoSections = (hangouts) => {
+		const sections = [];
+		for (let i = 0; i < hangouts.length; i += 2) {
+			sections.push(hangouts.slice(i, i + 2));
+		}
+		return sections;
+	};
+
+	const hangoutSections = splitHangoutsIntoSections(yourHangouts);
+
 	return (
-		<section className="section">
-			{/*  <AddHangout refreshHangouts={getYourHangouts}/> */}
-			{yourHangouts &&
-				yourHangouts.map((hangout) => {
-					return (
-						<StyledSection key={hangout._id}>
-							<div className="title-description">
-								<div className="post-info-noborder">
-									<h3>{hangout.title}</h3>
+		<div>
+			<h1> Your HangOuts </h1>
+			{hangoutSections.map((section, index) => (
+				<section className="section">
+					<div className="group-section" key={index}>
+						{section.map((hangout) => (
+							<StyledSection key={hangout._id}>
+								<div className="content">
+									<button className="post-button button">
+										<img src="/images/confirm-button.png"
+										style={{
+											width: "30px",
+											marginLeft: "-8px",
+											marginRight: "-10px",
+											marginTop: "40px",
+											marginBottom: "40px",
+											flexDirection: "row",
+										}}
+										alt="Confirm"
+										/>
+									</button>
+									
+									<div className="title-description">
+										<div className="post-info-noborder">
+											<h3>{hangout.title}</h3>
+										</div>
+										<div className="post-info-noborder">
+											<p>{slicedDescription(hangout)}</p>
+										</div>
+									</div>
+									{/* <StyledDiv> */}
+									<div className="date-location">
+										<div className="post-info">
+											<h6 className="title-overlay">location</h6>
+											<p>{hangout.location}</p>
+											<div className="overlay"> </div>
+										</div>
+										<div className="post-info">
+											<p>{hangout.date}</p>
+										</div>
+									</div>
+									{/* </StyledDiv> */}
+									<div className="details-presence">
+										<Link to={`/hangouts/${hangout._id}`}>
+											<button className="post-button">
+												View HangOut Details
+											</button>
+										</Link>
+									</div>
+									<div>
+										<div>
+											<p>{hangout.confirmations}</p>
+										</div>
+									</div>
+									<div className="overlay"> </div>
 								</div>
-								<div className="post-info-noborder">
-									<p>{slicedDescription(hangout)}</p>
-								</div>
-							</div>
-							{/* <StyledDiv> */}
-							<div className="date-location">
-								<div className="post-info">
-									<p>{hangout.location}</p>
-								</div>
-								<div className="post-info">
-									<p>{hangout.date}</p>
-								</div>
-							</div>
-							{/* </StyledDiv> */}
-							<div>
-								<Link to={`/hangouts/${hangout._id}`}>
-									<button className="post-button">View HangOut Details</button>
-								</Link>
-							</div>
-							<div>
-								<ConfirmPresence /* refreshHangout={refreshHangout} */
-								/>
-								<div>
-									<p>{hangout.confirmations}</p>
-								</div>
-							</div>
-						</StyledSection>
-					);
-				})}
-		</section>
+							</StyledSection>
+						))}
+					</div>
+				</section>
+			))}
+		</div>
 	);
 }
 

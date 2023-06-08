@@ -17,7 +17,6 @@
 	flex-direction: row;
 	align-items: center;
 	cursor: pointer;
-	text-transform: lowercase;
 }
 
 .btn:hover {
