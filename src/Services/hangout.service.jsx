@@ -6,7 +6,7 @@ class HangoutsService {
 	constructor() {
 		this.api = axios.create({
 			baseURL:
-				import.meta.env.VITE_APP_SERVER_URL || "http://localhost:5005",
+				import.meta.env.VITE_APP_API_URL 
 		});
 
 		// Automatically set JWT token in the headers for every request
