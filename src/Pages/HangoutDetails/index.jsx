@@ -40,18 +40,18 @@ function HangoutDetailsPage() {
 
 	const getComments = () => {
 		hangoutsService
-		.getComments(hangoutId)
-		.then((response) => {
-			const comments = response.data;
-			setComments(comments);
-		})
-		.catch((error) => console.log(error));
+			.getComments(hangoutId)
+			.then((response) => {
+				const comments = response.data;
+				setComments(comments);
+			})
+			.catch((error) => console.log(error));
 	};
-	
+
 	useEffect(() => {
 		getComments();
 	}, []);
-	
+
 	const refreshHangout = () => {
 		getHangout();
 		getComments();
