@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import hangoutsService from "../../Services/hangout.service";
 
@@ -19,6 +19,24 @@ function AddHangout() {
 	const [image, setImage] = useState("");
 	const [auth, setAuth] = useState("public");
 
+	const handleUpload = async (e) => {
+		try {
+			//formData === enctype=multipart/formdata
+			const uploadData = new FormData();
+
+			//add the file to the formData
+			uploadData.append("image", e.target.files[0]);
+			const response = await axios.post(
+				`${import.meta.env.VITE_APP_API_URL}/api/upload`,
+				uploadData
+			);
+			console.log(response.data.fileUrl);
+			setImage(response.data.fileUrl);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -29,7 +47,7 @@ function AddHangout() {
 				title,
 				description,
 				location,
-				date/* : `${date.slice(5, 7)}/${date.slice(-2)}/${date.slice(0, 4)}` */,
+				date /* : `${date.slice(5, 7)}/${date.slice(-2)}/${date.slice(0, 4)}` */,
 				time,
 				image,
 				auth,
@@ -43,8 +61,8 @@ function AddHangout() {
 			setDescription("");
 			setLocation("");
 			setDate("");
-			setTime("");
 			setImage("");
+			setTime("");
 			setAuth("public");
 
 			navigate("/hangouts");
@@ -99,13 +117,10 @@ function AddHangout() {
 					onChange={(e) => setTime(e.target.value)}
 				/>
 
-				<label>Images:</label>
-				<input
-					type="file"
-					name="image"
-					value={image}
-					onChange={(e) => setImage(e.target.value)}
-				/>
+				<label htmlFor="image">
+					Images:
+					<input type="file" onChange={(e) => handleUpload(e)} />
+				</label>
 
 				<label>Public</label>
 				<input
