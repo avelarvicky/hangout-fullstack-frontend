@@ -120,14 +120,17 @@ function YourHangouts() {
 									</div>
 									{/* <StyledDiv> */}
 									<div className="date-location">
-										<div className="post-info">
+										<div className="section-title">
 											<h6>location</h6>
+											<div className="post-info">
+												<p>{hangout.location}</p>
+											</div>
 										</div>
-										<div className="post-info">
-											<p>{hangout.location}</p>
-										</div>
-										<div className="post-info">
-											<p>{hangout.date}</p>
+										<div className="section-title">
+											<h6>date</h6>
+											<div className="post-info">
+												<p>{hangout.date}</p>
+											</div>
 										</div>
 									</div>
 									{/* </StyledDiv> */}

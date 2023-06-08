@@ -25,9 +25,12 @@ function YourProfilePage() {
 		getUserData();
 	}, []);
 
+
+
+
 	return (
 		<div>
-			<p>Welcome, {userData.name}</p>
+			<p>Welcome, {userData && userData.name}</p>
 		</div>
 	);
 }
