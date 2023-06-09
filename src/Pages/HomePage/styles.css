@@ -1,72 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500;800&display=swap");
 
 .home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 0px 15px 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 50px 0px 15px 0px;
 }
 
 .homepage-text {
-    text-align: left;
-    margin: 5px;
-    text-shadow: 2px 1px 2px rgb(109, 109, 109);
+	text-align: left;
+	margin: 5px;
+	text-shadow: 2px 1px 2px rgb(109, 109, 109);
+  transform: translate(0%, -10%);
 }
 
 .hangin {
-    font-size: 40px;
-    font-weight: 400;
-    text-shadow: 2px 1px 2px rgb(109, 109, 109);
+	font-size: 40px;
+	font-weight: 400;
+	text-shadow: 2px 1px 2px rgb(109, 109, 109);
+  transform: translate(0%, -10%);
 }
 
 .hangout {
-    font-size: 80px;
-    text-shadow: 2px 1px 2px rgb(109, 109, 109);
+	font-size: 80px;
+	text-shadow: 2px 1px 2px rgb(109, 109, 109);
 }
 
 .phrase {
-    font-size: 24px;
-    font-family: Raleway;
-    font-weight: 200;
+	font-size: 24px;
+	font-family: Raleway;
+	font-weight: 200;
+  text-shadow: 2px 1px 2px rgb(255, 255, 255);
 }
 
 .fade-in {
-    opacity: 0;
-    animation: fade-in-animation 1s forwards;
-  }
-  
-  @keyframes fade-in-animation {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+	opacity: 0;
+	animation: fade-in-animation 1s forwards;
+}
 
-  .content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .text-sobreposto {
-    position: absolute;
-    top: 25%;
-    left: 37%;
-    border: none;
-    z-index: 2;
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0%;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 1;
-  }
-  
+@keyframes fade-in-animation {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 
+.content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.text-sobreposto {
+	position: absolute;
+	top: 25%;
+	left: 37%;
+	border: none;
+	z-index: 2;
+  transform: translate(0%, -10%);
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 0%;
+	background-color: rgba(0, 0, 0, 0);
+	z-index: 1;
+}
+
+video {
+  transform: translate(0%, -10%);
+}
+
+.background-blob {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+}
+
+.background-blob::before {
+	content: "";
+	position: absolute;
+	top: 45%;
+	left: 81%;
+	width: 45%;
+	height: 75%;
+	border-radius: 50%;
+	background-image: url("../../../public/images/friends.jpg");
+	opacity: 0.8;
+	background-size: cover;
+	background-position: center;
+	transform: translate(-25%, -25%);
+	z-index: -1;
+  box-shadow: rgba(0, 0, 0, 0.9) -5px 5px 15px;
+}
+
+
+.background-blob2 {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+}
+
+.background-blob2::before {
+	content: "";
+	position: absolute;
+	top: -10%;
+	left: -10%;
+	width: 55%;
+	height: 110%;
+	border-radius: 50%;
+	background-image: url("../../../public/images/friends2.jpg");
+	opacity: 0.8;
+	background-size: cover;
+	background-position: center;
+	transform: translate(-25%, -25%);
+	z-index: -1;
+  box-shadow: rgba(0, 0, 0, 0.9) 5px 5px 15px;
+}

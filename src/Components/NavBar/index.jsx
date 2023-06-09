@@ -55,7 +55,7 @@ function NavBar() {
 		<nav className="navbar">
 			<div className="left">
 				<h1 className="logo">HangOut</h1>
-				<Link to="/">
+				<Link to="/" style={{ textDecoration: 'none' }}>
 					<button
 						className={`btn ${isHovered ? "hovered" : ""}`}
 						onMouseEnter={handleMouseEnter}

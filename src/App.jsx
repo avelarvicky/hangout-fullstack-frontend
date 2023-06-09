@@ -23,6 +23,7 @@ import IsPrivate from "./Components/IsPrivate";
 import IsAnon from "./Components/IsAnon";
 import YourProfilePage from "./Pages/YourProfile";
 import EditProfilePage from "./Pages/EditProfile";
+import Footer from "./Components/Footer";
 
 function App() {
 	return (
@@ -74,6 +75,7 @@ function App() {
 					element={<EditComment />}
 				/>
 			</Routes>
+			<Footer />
 		</div>
 	);
 }
