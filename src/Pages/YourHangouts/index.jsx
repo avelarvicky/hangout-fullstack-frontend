@@ -103,8 +103,8 @@ function YourHangouts() {
 	};
 
 	return (
-		<div>
-			<h1> Your HangOuts </h1>
+		<div className="explore-hangouts-container">
+			<h1> Private HangOuts </h1>
 			{hangoutSections.map((section, index) => (
 				<section className="section">
 					<div className="group-section" key={index}>
@@ -131,24 +131,32 @@ function YourHangouts() {
 
 									<div className="title-description">
 										<div className="post-info-noborder">
-											<h3>{hangout.title}</h3>
+											<h2 style={{fontSize: 24, margin: 0}}>{hangout.title}</h2>
 										</div>
 										<div className="post-info-noborder">
 											<p>{slicedDescription(hangout)}</p>
 										</div>
 									</div>
-									{/* <StyledDiv> */}
-									<div className="date-location">
+									<div className="location">
 										<div className="section-title">
 											<h6>location</h6>
 											<div className="post-info">
 												<p>{hangout.location}</p>
 											</div>
 										</div>
+									</div>
+									{/* <StyledDiv> */}
+									<div className="date-time">
 										<div className="section-title">
 											<h6>date</h6>
 											<div className="post-info">
 												<p>{hangout.date}</p>
+											</div>
+										</div>
+										<div className="section-title">
+											<h6>time</h6>
+											<div className="post-info">
+												<p>{hangout.time}</p>
 											</div>
 										</div>
 									</div>

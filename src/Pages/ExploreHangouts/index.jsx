@@ -46,6 +46,10 @@ function ExploreHangouts() {
 		}
 	};
 
+	const populatedUser = (hangout) => {
+		return hangout.user.populate();
+	};
+
 	/* const getDaySuffix = (day) => {
 		if (day >= 11 && day <= 13) {
 			return "th";
@@ -105,7 +109,7 @@ function ExploreHangouts() {
 	};
 
 	return (
-		<div>
+		<div className="explore-hangouts-container">
 			<h1> Explore HangOuts </h1>
 			{hangoutSections.map((section, index) => (
 				<section className="section">
@@ -133,24 +137,34 @@ function ExploreHangouts() {
 
 									<div className="title-description">
 										<div className="post-info-noborder">
-											<h3>{hangout.title}</h3>
+											<h2 style={{ fontSize: 24, margin: 0 }}>
+												{hangout.title}
+											</h2>
 										</div>
 										<div className="post-info-noborder">
 											<p>{slicedDescription(hangout)}</p>
 										</div>
 									</div>
-									{/* <StyledDiv> */}
-									<div className="date-location">
+									<div className="location">
 										<div className="section-title">
 											<h6>location</h6>
 											<div className="post-info">
 												<p>{hangout.location}</p>
 											</div>
 										</div>
+									</div>
+									{/* <StyledDiv> */}
+									<div className="date-time">
 										<div className="section-title">
 											<h6>date</h6>
 											<div className="post-info">
 												<p>{hangout.date}</p>
+											</div>
+										</div>
+										<div className="section-title">
+											<h6>time</h6>
+											<div className="post-info">
+												<p>{hangout.time}</p>
 											</div>
 										</div>
 									</div>
@@ -162,9 +176,11 @@ function ExploreHangouts() {
 											</button>
 										</Link>
 									</div>
-									<div>
+
+									<div className="location">
 										<div>
-											<p>{hangout.confirmations}</p>
+											Confirmed users you know!
+											<p style={{color:'#ed4358'}}>{hangout.confirmations}</p>
 										</div>
 									</div>
 									<div className="overlay"> </div>

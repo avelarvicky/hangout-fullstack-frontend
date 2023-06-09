@@ -6,14 +6,14 @@ import axios from "axios";
 function EditProfilePage() {
 	const storedToken = localStorage.getItem("authToken");
 
-    const { user } = useContext(AuthContext);
+	const { user } = useContext(AuthContext);
 
 	const [bio, setBio] = useState("");
 	const [profileImg, setProfileImg] = useState("");
 
 	const navigate = useNavigate();
 
-    /* const handleUpload = async (e) => {
+	const handleUpload = async (e) => {
 		try {
 			//formData === enctype=multipart/formdata
 			const uploadData = new FormData();
@@ -25,27 +25,28 @@ function EditProfilePage() {
 				uploadData
 			);
 			setProfileImg(response.data.fileUrl);
+			
 		} catch (error) {
 			console.log(error);
 		}
-	}; */
+	};
 
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
 
 			const response = await axios.post(
-                `${import.meta.env.VITE_APP_API_URL}/auth/userprofile/edit`,
-                {
-                    bio: bio,
-                    profileImg: profileImg
-                },
+				`${import.meta.env.VITE_APP_API_URL}/auth/userprofile/edit`,
+				{
+					bio: bio,
+					profileImg: profileImg,
+				},
 				{
 					headers: { Authorization: `Bearer ${storedToken}` },
-				},
+				}
 			);
 
-            console.log(response.data)
+			console.log(response.data);
 
 			navigate("/userprofile");
 		} catch (error) {
@@ -54,20 +55,26 @@ function EditProfilePage() {
 	};
 
 	return (
-		<div>
-			<h1>Welcome,</h1>
+		<div className="login-page">
+			<div className="welcome">
+				<h1>Edit Profile</h1>
+			</div>
 
-			<form onSubmit={handleSubmit}>
-				<textarea
-					name="bio"
-					value={bio}
-					onChange={(e) => setBio(e.target.value)}
-				/>
+			<form onSubmit={handleSubmit} className="form">
+				<div>
+					<label htmlFor="image">
+					</label>
+						<input type="file" onChange={(e) => handleUpload(e)} />
+				</div>
 
-				{/* <label htmlFor="image">
-					<input type="file" onChange={(e) => handleUpload(e)} />
-				</label> */}
-
+				<div>
+					<label>About You</label>
+					<textarea
+						name="bio"
+						value={bio}
+						onChange={(e) => setBio(e.target.value)}
+					/>
+				</div>
 				<button type="submit">Save Changes</button>
 			</form>
 		</div>

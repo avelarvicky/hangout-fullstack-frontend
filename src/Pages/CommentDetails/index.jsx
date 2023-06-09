@@ -49,9 +49,7 @@ function CommentDetails() {
 
             <button onClick={deleteComment}>Delete Comment</button>
 
-			<Link to={`/hangouts/${hangoutId}`}>
-				<button>Back to HangOut</button>
-			</Link>
+			
 		</div>
 	);
 }

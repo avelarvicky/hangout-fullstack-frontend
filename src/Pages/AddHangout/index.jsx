@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import hangoutsService from "../../Services/hangout.service";
 
+import "./styles.css"
+
 // steps:
 // 1) create a form;
 // 2) connect the input values with state values;
@@ -72,72 +74,86 @@ function AddHangout() {
 	};
 
 	return (
-		<div>
+		<div className="login-page">
 			<h3>Create a HangOut!</h3>
 
-			<form onSubmit={handleSubmit}>
-				<label>Title:</label>
-				<input
-					type="text"
-					name="title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-				/>
+			<form onSubmit={handleSubmit} className="form wideform">
+				<div className="form-section">
+					<label>Title:</label>
+					<input
+						type="text"
+						name="title"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+					/>
+				</div>
 
-				<label>Description:</label>
-				<textarea
-					type="text"
-					name="description"
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-				/>
+				<div className="form-section">
+					<label>Description:</label>
+					<textarea
+						type="text"
+						name="description"
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+					/>
+				</div>
 
-				<label>Location:</label>
-				<textarea
-					type="text"
-					name="location"
-					value={location}
-					onChange={(e) => setLocation(e.target.value)}
-				/>
+				<div className="form-section">
+					<label>Location:</label>
+					<textarea
+						type="text"
+						name="location"
+						value={location}
+						onChange={(e) => setLocation(e.target.value)}
+					/>
+				</div>
 
-				<label>Date:</label>
-				<input
-					type="date"
-					name="date"
-					value={date}
-					onChange={(e) => setDate(e.target.value)}
-				/>
+				<div className="form-row">
+					<label>Date:</label>
+					<input
+						type="date"
+						name="date"
+						value={date}
+						onChange={(e) => setDate(e.target.value)}
+					/>
+					<label>Time:</label>
+					<input
+						type="time"
+						name="time"
+						value={time}
+						onChange={(e) => setTime(e.target.value)}
+					/>
+				</div>
 
-				<label>Time:</label>
-				<input
-					type="time"
-					name="time"
-					value={time}
-					onChange={(e) => setTime(e.target.value)}
-				/>
+				<div className="form-section">
+					<label htmlFor="image">
+						Image:
+						<input type="file" onChange={(e) => handleUpload(e)} />
+					</label>
+				</div>
 
-				<label htmlFor="image">
-					Images:
-					<input type="file" onChange={(e) => handleUpload(e)} />
-				</label>
-
-				<label>Public</label>
-				<input
-					type="radio"
-					name="auth"
-					value="public"
-					checked={auth === "public"}
-					onChange={(e) => setAuth(e.target.value)}
-				/>
-
-				<label>Private</label>
-				<input
-					type="radio"
-					name="auth"
-					value="private"
-					checked={auth === "private"}
-					onChange={(e) => setAuth(e.target.value)}
-				/>
+				<div className="form-row">
+					<div className="auth">
+						<label>Public</label>
+						<input
+							type="radio"
+							name="auth"
+							value="public"
+							checked={auth === "public"}
+							onChange={(e) => setAuth(e.target.value)}
+						/>
+					</div>
+					<div>
+						<label>Private</label>
+						<input
+							type="radio"
+							name="auth"
+							value="private"
+							checked={auth === "private"}
+							onChange={(e) => setAuth(e.target.value)}
+						/>
+					</div>
+				</div>
 
 				<button type="submit">Post HangOut</button>
 			</form>

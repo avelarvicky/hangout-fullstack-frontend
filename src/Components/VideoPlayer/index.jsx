@@ -1,4 +1,4 @@
-import videoSource from "../../../image/hangin, HangOut..mp4";
+import videoSource from "/images/hangin, HangOut..mp4";
 import { useEffect, useRef } from "react";
 
 function VideoPlayer() {

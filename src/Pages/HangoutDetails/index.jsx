@@ -5,6 +5,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import hangoutsService from "../../Services/hangout.service";
 import AddComment from "../AddComment";
 
+import { StyledSection } from "../../Components/Styles/Section.styled";
+
+import "./styles.css";
+
 function HangoutDetailsPage() {
 	const { hangoutId } = useParams();
 	const [hangout, setHangout] = useState(null);
@@ -12,7 +16,7 @@ function HangoutDetailsPage() {
 	/* const [confirmations, setConfirmations] = useState([]); */
 	const { user } = useContext(AuthContext);
 
-	console.log(user)
+	console.log(user);
 	const navigate = useNavigate();
 
 	const getHangout = () => {
@@ -71,47 +75,59 @@ function HangoutDetailsPage() {
 	} */
 
 	return (
-		<div>
+		<div className="details">
 			{hangout && (
-				<div>
-					<img src={hangout.image} style={{ width: 200 }} />
-					<h1>{hangout.title}</h1>
-					<p>{hangout.description}</p>
-					<p>{hangout.location}</p>
-					<p>{hangout.date}</p>
+				<StyledSection>
+					<div>
+						<div className="details">
+							<h1>{hangout.title}</h1>
+							<p>{hangout.description}</p>
+							<p>{hangout.location}</p>
+							<p>{hangout.date}</p>
+						</div>
+						<div className="details">
+							<img src={hangout.image} style={{ width: 150 }} />
+						</div>
 
-					{comments &&
-						comments.map((comment) => {
-							return (
-								<div key={comment._id}>
-									<p>{comment.content}</p>
-									{comment.author == user._id && (
-										<Link
-											to={`/hangouts/${hangoutId}/comments/${comment._id}`}
-										>
-											<button>View Comment Details</button>
+						<div className="details">
+							{comments &&
+								comments.map((comment) => {
+									return (
+										<div key={comment._id}>
+											<h3>Comments</h3>
+											<p>{comment.content}</p>
+											<div>
+											{comment.author == user._id && (
+												<Link
+													to={`/hangouts/${hangoutId}/comments/${comment._id}`} style={{textDecoration: 0}}
+												>
+													<button className="signup-btn" style={{height: 15, marginBottom: 20}}>View Comment Details</button>
+												</Link>
+											)}
+											</div>
+										</div>
+									);
+								})}
+							<AddComment refreshHangout={refreshHangout} />
+							<div className="options">
+								{hangout && hangout.user._id == user._id && (
+									<>
+										<Link to={`/hangouts/edit/${hangoutId}`} style={{textDecoration: 0}}>
+											<button className="signup-btn" >Edit HangOut</button>
 										</Link>
-									)}
-						
-								</div>
-							);
-						})}
-				</div>
+										<button onClick={deleteHangout} className="signup-btn">
+											Delete HangOut
+										</button>
+									</>
+								)}
+							</div>
+						</div>
+					</div>
+				</StyledSection>
 			)}
-
-			<AddComment refreshHangout={refreshHangout} />
-
-			{hangout && hangout.user._id == user._id && (
-				<>
-					<Link to={`/hangouts/edit/${hangoutId}`}>
-						<button>Edit HangOut</button>
-					</Link>
-					<button onClick={deleteHangout}>Delete HangOut</button>
-					<Link to="/hangouts">
-						<button>Back to HangOuts</button>
-					</Link>
-				</>
-			)}
+			<Link to="/hangouts" style={{ textDecoration: 0, marginBottom: 5}}>
+				<button className="login-btn">Back to HangOuts</button>
+			</Link>
 		</div>
 	);
 }
