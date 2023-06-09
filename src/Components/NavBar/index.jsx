@@ -116,13 +116,19 @@ function NavBar() {
 					</div>
 				</div>
 			) : (
-				<div>
+				<div className="navbar-loggedin">
+					<div>
 					<Link to="/signup" style={{ textDecoration: 'none' }}>
-						<button>Sign Up</button>
+						<button className="btn">Sign Up</button>
 					</Link>
+
+					</div>
+					<div>
 					<Link to="/login" style={{ textDecoration: 'none' }}>
-						<button>Login</button>
+						<button className="btn">Login</button>
 					</Link>
+
+					</div>
 				</div>
 			)}
 		</nav>

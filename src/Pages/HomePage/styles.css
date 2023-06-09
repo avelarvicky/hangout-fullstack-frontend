@@ -5,7 +5,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 50px 0px 15px 0px;
+	margin: 40px 0px 15px 0px;
 }
 
 .homepage-text {
@@ -91,7 +91,7 @@ video {
 	width: 45%;
 	height: 75%;
 	border-radius: 50%;
-	background-image: url("../../../public/images/friends.jpg");
+	background-image: url("../../images/friends.jpg");
 	opacity: 0.8;
 	background-size: cover;
 	background-position: center;
@@ -104,7 +104,7 @@ video {
 .background-blob2 {
 	position: relative;
 	overflow: hidden;
-	height: 100vh;
+	height: 87vh;
 }
 
 .background-blob2::before {
@@ -115,7 +115,7 @@ video {
 	width: 55%;
 	height: 110%;
 	border-radius: 50%;
-	background-image: url("../../../public/images/friends2.jpg");
+	background-image: url("../../images/friends2.jpg");
 	opacity: 0.8;
 	background-size: cover;
 	background-position: center;

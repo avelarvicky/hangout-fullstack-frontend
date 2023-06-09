@@ -6,11 +6,13 @@ import { AuthContext } from "../../Context/auth.context";
 
 import firebase from "../../firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
+/* import {
 	signInWithPopup,
 	GoogleAuthProvider,
 	GithubAuthProvider,
-} from "firebase/auth";
+} from "firebase/auth"; */
+
+import "../Login/login.css";
 
 const auth = firebase.auth();
 
@@ -94,39 +96,58 @@ function LoginPage() {
 	};
 
 	return (
-		<div className="LoginPage">
-			<h1>Login</h1>
+		<div className="login-page">
+			<form onSubmit={handleLoginSubmit} className="form">
+				<div className="form-title">
+					<h1>Login</h1>
+				</div>
+				<div className="form-section">
+					<label>Email:</label>
 
-			<form onSubmit={handleLoginSubmit}>
-				<label>Email:</label>
-				<input
-					type="email"
-					name="email"
-					value={email}
-					onChange={handleEmail}
-				/>
+					<div>
+						<input
+							type="email"
+							name="email"
+							value={email}
+							onChange={handleEmail}
+						/>
+					</div>
+				</div>
 
-				<label>Password:</label>
-				<input
-					type="password"
-					name="password"
-					value={password}
-					onChange={handlePassword}
-				/>
+				<div className="form-section">
+					<label>Password:</label>
 
-				<button type="submit">Login</button>
+					<div>
+						<input
+							type="password"
+							name="password"
+							value={password}
+							onChange={handlePassword}
+						/>
+					</div>
+				</div>
+
+				<button type="submit" className="login-btn">
+					Login
+				</button>
+
+				<div className="form-section">
+					<p>Don't have an account yet?</p>
+					<button className="signup-btn">
+						<Link to={"/signup"} style={{ textDecoration: 'none', color: "black"}} >Sign Up</Link>
+					</button>
+				</div>
 			</form>
 
-			<button onClick={signInWithGoogle}> Sign in with Google </button>
-			<button onClick={signInWithGithub}> Sign in with Github </button>
+			{/* <button onClick={signInWithGoogle}> Sign in with Google </button>
+			<button onClick={signInWithGithub}> Sign in with Github </button> */}
+			{/* <div>
+				<button onClick={() => auth.signOut()}> Logout </button>
+			</div> */}
 
-			<button onClick={() => auth.signOut()}> Logout </button>
-			{user ? <p>You are logged in</p> : <p>You are logged out</p>}
-
+			{/* {user ? <p>You are logged in</p> : <p>You are logged out</p>}
+			 */}
 			{errorMessage && <p className="error-message">{errorMessage}</p>}
-
-			<p>Don't have an account yet?</p>
-			<Link to={"/signup"}>Sign Up</Link>
 		</div>
 	);
 }
