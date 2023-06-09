@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import hangoutsService from "../../Services/hangout.service";
 
+import './styles.css'
+
 // steps:
 // 1 - grab route params (hangoutId)
 // 2 - call axios to get specific info of a hangout
@@ -48,7 +50,7 @@ function EditComment() {
 	};
 
 	return (
-		<div>
+		<div className="comment">
 			<h3>Edit the Comment</h3>
 
 			<form onSubmit={handleFormSubmit}>
