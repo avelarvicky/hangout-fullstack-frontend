@@ -86,7 +86,7 @@ function HangoutDetailsPage() {
 							<p>{hangout.date}</p>
 						</div>
 						<div className="details">
-							<img src={hangout.image} style={{ width: 150 }} />
+							<img src={hangout.image} style={{ width: 200 }} />
 						</div>
 
 						<div className="details">

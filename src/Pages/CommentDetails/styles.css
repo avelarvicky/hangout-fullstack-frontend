@@ -1,0 +1,9 @@
+.comment {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+    align-items: center;
+    position: relative;
+    top: 30%;
+}

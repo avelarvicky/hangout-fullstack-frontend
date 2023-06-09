@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import hangoutsService from "../../Services/hangout.service";
 
+import "./styles.css"
+
 function CommentDetails() {
 	const [comment, setComment] = useState(null);
 
@@ -36,18 +38,22 @@ function CommentDetails() {
 	};
 
 	return (
-		<div>
+		<div className="comment">
+			<div>
 			{comment && (
 				<div>
 					<p>{comment.content}</p>
 				</div>
 			)}
+			</div>
 
+			<div>
 			<Link to={`/hangouts/${hangoutId}/comments/edit/${commentId}`}>
 				<button>Edit Comment</button>
 			</Link>
 
             <button onClick={deleteComment}>Delete Comment</button>
+			</div>
 
 			
 		</div>
